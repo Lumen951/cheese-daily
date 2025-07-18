@@ -13,24 +13,5 @@ dependencies:
   - selenium
   - openai
   - anthropic
-  - dify-client
-  - pydub
-  - openmoss
-  - feishu-python-sdk
-  - python-dotenv
-  - schedule
-  - aiohttp
-  - sqlalchemy
-  - pip:
-    - arxiv
-    - qiskit
-    - dify-client
-    - anthropic
-    - openai
-    - feishu-python-sdk
-    - openmoss
-    - pydub
-    - schedule
-    - python-dotenv
-    - aiohttp
-    - sqlalchemy
+  - arxiv
+  - qiskit

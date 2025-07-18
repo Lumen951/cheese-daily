@@ -1,0 +1,11 @@
+
+# 日志文件
+/logs
+
+# api文档
+/docs/api.md
+
+# 提示词文档
+/docs/prompts.md
+
+# 配置文件
