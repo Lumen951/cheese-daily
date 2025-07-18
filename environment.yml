@@ -1,0 +1,36 @@
+name: cheese-daily
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - requests
+  - pandas
+  - numpy
+  - beautifulsoup4
+  - lxml
+  - selenium
+  - openai
+  - anthropic
+  - dify-client
+  - pydub
+  - openmoss
+  - feishu-python-sdk
+  - python-dotenv
+  - schedule
+  - aiohttp
+  - sqlalchemy
+  - pip:
+    - arxiv
+    - qiskit
+    - dify-client
+    - anthropic
+    - openai
+    - feishu-python-sdk
+    - openmoss
+    - pydub
+    - schedule
+    - python-dotenv
+    - aiohttp
+    - sqlalchemy
