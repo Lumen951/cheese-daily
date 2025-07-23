@@ -1,0 +1,1814 @@
+app:
+  description: 奇绩前沿信号日报概括工作流
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: cheese-daily
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.6@dd589dc093c8084925858034ab5ec1fdf0d33819f43226c2f8c4a749a9acbbb2
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tavily:0.1.2@aa7a8744b2ccf3a7aec818da6c504997a6319b29040e541bfc73b4fbaa9e98d9
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/lark_document:0.0.1@56f38d94180c25c4c5326029f0bd3ebb451e87a886b57dea9aae8f5dd0e3b51a
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: bowenliang123/md_exporter:1.8.0@aa15ca94651e608fa2defef440cc5bbd22884053168bd2d41d132d5d1b021129
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1752834402662-source-1753084591667-target
+      selected: false
+      source: '1752834402662'
+      sourceHandle: source
+      target: '1753084591667'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: document-extractor
+      id: 1753084591667-true-1753082858391-target
+      selected: false
+      source: '1753084591667'
+      sourceHandle: 'true'
+      target: '1753082858391'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: llm
+      id: 1753082858391-source-1753084656212-target
+      selected: false
+      source: '1753082858391'
+      sourceHandle: source
+      target: '1753084656212'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1753084656212-source-1753085620948-target
+      selected: false
+      source: '1753084656212'
+      sourceHandle: source
+      target: '1753085620948'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: iteration
+      id: 1753091379748-true-1753091595682-target
+      selected: false
+      source: '1753091379748'
+      sourceHandle: 'true'
+      target: '1753091595682'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: iteration
+      id: 1753091379748-true-1753092917171-target
+      selected: false
+      source: '1753091379748'
+      sourceHandle: 'true'
+      target: '1753092917171'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1753092917171'
+        sourceType: iteration-start
+        targetType: llm
+      id: 1753092917171start-source-1753092930842-target
+      selected: false
+      source: 1753092917171start
+      sourceHandle: source
+      target: '1753092930842'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: code
+      id: 1753085620948-source-1753101171277-target
+      selected: false
+      source: '1753085620948'
+      sourceHandle: source
+      target: '1753101171277'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1753101171277-source-1753091379748-target
+      selected: false
+      source: '1753101171277'
+      sourceHandle: source
+      target: '1753091379748'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1753091595682'
+        sourceType: iteration-start
+        targetType: tool
+      id: 1753091595682start-source-1753102485815-target
+      selected: false
+      source: 1753091595682start
+      sourceHandle: source
+      target: '1753102485815'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1753091595682'
+        sourceType: tool
+        targetType: llm
+      id: 1753102485815-source-1753092673402-target
+      selected: false
+      source: '1753102485815'
+      sourceHandle: source
+      target: '1753092673402'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1753091595682-source-1753110636172-target
+      selected: false
+      source: '1753091595682'
+      sourceHandle: source
+      target: '1753110636172'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1753092917171-source-1753110636172-target
+      selected: false
+      source: '1753092917171'
+      sourceHandle: source
+      target: '1753110636172'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1753110636172-source-1753113132470-target
+      selected: false
+      source: '1753110636172'
+      sourceHandle: source
+      target: '1753113132470'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: tool
+      id: 1753110636172-source-17531530225850-target
+      selected: false
+      source: '1753110636172'
+      sourceHandle: source
+      target: '17531530225850'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 1753157893478-source-1753158887743-target
+      selected: false
+      source: '1753157893478'
+      sourceHandle: source
+      target: '1753158887743'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: tool
+      id: 1753158887743-source-1753152967864-target
+      source: '1753158887743'
+      sourceHandle: source
+      target: '1753152967864'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: end
+      id: 1753152967864-source-1753077751604-target
+      source: '1753152967864'
+      sourceHandle: source
+      target: '1753077751604'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1753113132470-source-1753162295098-target
+      source: '1753113132470'
+      sourceHandle: source
+      target: '1753162295098'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1753162295098-source-1753169421107-target
+      source: '1753162295098'
+      sourceHandle: source
+      target: '1753169421107'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: variable-aggregator
+      id: 17531530225850-source-1753169421107-target
+      selected: false
+      source: '17531530225850'
+      sourceHandle: source
+      target: '1753169421107'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: variable-aggregator
+        targetType: tool
+      id: 1753169421107-source-1753157893478-target
+      source: '1753169421107'
+      sourceHandle: source
+      target: '1753157893478'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: tool
+      id: 1753158887743-source-1753171389380-target
+      source: '1753158887743'
+      sourceHandle: source
+      target: '1753171389380'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: end
+      id: 1753171389380-source-1753077751604-target
+      source: '1753171389380'
+      sourceHandle: source
+      target: '1753077751604'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: sys.documents
+          max_length: 5
+          options: []
+          required: true
+          type: file
+          variable: documents
+      height: 88
+      id: '1752834402662'
+      position:
+        x: 30
+        y: 352
+      positionAbsolute:
+        x: 30
+        y: 352
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1753152967864'
+          - files
+          value_type: array[file]
+          variable: file
+        - value_selector:
+          - '1753158887743'
+          - lark_url
+          value_type: string
+          variable: lark_url
+        - value_selector:
+          - '1753171389380'
+          - files
+          value_type: array[file]
+          variable: broadcast_file
+        selected: true
+        title: 结束
+        type: end
+      height: 140
+      id: '1753077751604'
+      position:
+        x: 5769.0849281256305
+        y: 363.8571428571429
+      positionAbsolute:
+        x: 5769.0849281256305
+        y: 363.8571428571429
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        desc: ''
+        is_array_file: true
+        selected: false
+        title: Excel表格内容提取器
+        type: document-extractor
+        variable_selector:
+        - '1752834402662'
+        - documents
+      height: 90
+      id: '1753082858391'
+      position:
+        x: 698
+        y: 352
+      positionAbsolute:
+        x: 698
+        y: 352
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 57f782a5-e7fd-43be-bcab-e2c6ba7d00f6
+            value: .xlsx
+            varType: file
+            variable_selector:
+            - '1752834402662'
+            - documents
+            - extension
+          - comparison_operator: is
+            id: 44385f1f-dfca-47c8-a67f-e021ab47de6d
+            value: .csv
+            varType: file
+            variable_selector:
+            - '1752834402662'
+            - documents
+            - extension
+          id: 'true'
+          logical_operator: or
+        desc: ''
+        selected: false
+        title: 文件类型判断
+        type: if-else
+      height: 150
+      id: '1753084591667'
+      position:
+        x: 364
+        y: 352
+      positionAbsolute:
+        x: 364
+        y: 352
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1753082858391'
+          - text
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: ce5900d6-b4af-4688-8e2f-26d691d8a37f
+          role: system
+          text: "你是一个结构化信息提取专家。请严格从用户提供的文本中提取以下三个字段，并遵循以下规则：\n\n1. **提取字段**：\n   -\
+            \ **Title**：文档的核心标题（必须存在，若文本中无标题则返回空字符串）。\n   - **Abstract**：文档的摘要或核心内容概括（若原文无明确摘要，则提炼3句话以内的关键结论）。\n\
+            \   - **Abstract_URL**：摘要来源的URL链接（必须是完整URL格式，如`https://...`；若无则返回空字符串）。\n\
+            \   - 要求提取所有上述三个字段，不允许缺少内容\n\n2. **提取规则**：\n   - 只提取文本中明确存在的信息，禁止虚构或改写\n\
+            \   - 忽略与目标字段无关的内容（如作者、日期、图表描述等）\n\n3. **输出格式**：\n    - 按照下列格式直接返回相关内容，不要添加任何其他文字：\n\
+            \      {\n        \"Title\": \"...\",\n        \"Abstract\": \"...\",\n\
+            \        \"Abstract_URL\": \"...\"\n      }\n    - 禁止包含额外说明、符号或换行符\n \
+            \   - 确保所有值为字符串类型（空字段用`\"\"`表示）\n\n输入内容：\n{{#context#}}\n"
+        selected: false
+        structured_output_enabled: true
+        title: DeepSeek提取Excel字段
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1753084656212'
+      position:
+        x: 1032
+        y: 352
+      positionAbsolute:
+        x: 1032
+        y: 352
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        code: "import re\nimport json\n\ndef main(paper_info: str) -> dict:\n    #\
+          \ 用正则分割每一组 { ... }\n    paper_blocks = re.findall(r'\\{.*?\\}', paper_info,\
+          \ re.DOTALL)\n    titles = []\n    abstracts = []\n    urls = []\n    for\
+          \ block in paper_blocks:\n        try:\n            paper = json.loads(block)\n\
+          \            titles.append(paper.get(\"Title\", \"\"))\n            abstracts.append(paper.get(\"\
+          Abstract\", \"\"))\n            urls.append(paper.get(\"Abstract_URL\",\
+          \ \"\"))\n        except Exception as e:\n            continue\n    return\
+          \ {\n        \"title\": titles,\n        \"abstract\": abstracts,\n    \
+          \    \"abstract_url\": urls,\n        \"paper_count\": len(titles)\n   \
+          \ }"
+        code_language: python3
+        desc: ''
+        outputs:
+          abstract:
+            children: null
+            type: array[string]
+          abstract_url:
+            children: null
+            type: array[string]
+          paper_count:
+            children: null
+            type: number
+          title:
+            children: null
+            type: array[string]
+        selected: false
+        title: 字段拆分
+        type: code
+        variables:
+        - value_selector:
+          - '1753084656212'
+          - text
+          value_type: string
+          variable: paper_info
+      height: 52
+      id: '1753085620948'
+      position:
+        x: 1366
+        y: 352
+      positionAbsolute:
+        x: 1366
+        y: 352
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: 0351eb54-5bbb-4565-8878-a5a8e3f625d3
+            value: ''
+            varType: array[string]
+            variable_selector:
+            - '1753101171277'
+            - replaced_url
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支 2
+        type: if-else
+      height: 124
+      id: '1753091379748'
+      position:
+        x: 2034
+        y: 352
+      positionAbsolute:
+        x: 2034
+        y: 352
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        desc: ''
+        error_handle_mode: terminated
+        height: 304
+        is_parallel: false
+        iterator_input_type: array[string]
+        iterator_selector:
+        - '1753101171277'
+        - replaced_url
+        output_selector:
+        - '1753092673402'
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1753091595682start
+        title: 论文内容解析迭代
+        type: iteration
+        width: 812
+      height: 304
+      id: '1753091595682'
+      position:
+        x: 2551.1311402122215
+        y: 352
+      positionAbsolute:
+        x: 2551.1311402122215
+        y: 352
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 812
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1753091595682start
+      parentId: '1753091595682'
+      position:
+        x: 60
+        y: 123
+      positionAbsolute:
+        x: 2611.1311402122215
+        y: 475
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1753102485815'
+          - text
+        desc: ''
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1753091595682'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: e0ec9335-ec47-4ad5-9513-f4d3413d59de
+          role: system
+          text: "你是一名学术分析专家，请从用户提供的论文文本中精确提取以下结构化信息，并确保数据绝对准确。按以下JSON格式输出（仅返回有效JSON，不加额外说明）：\n\
+            \n{\n\"研究思想\": \"用1-2句话说明研究动机和领域贡献，例如：'针对XX领域长期存在的XX问题，本研究首次提出XX，解决了XX痛点，将理论效率提升20%'\"\
+            ,\n\"研究方法\": \"分条目列举核心实验方法/技术路线，包含关键参数。例如：1. 采用XX模型（batch_size=256）处理数据；2.\
+            \ 使用XX设备开展XX实验；3. 建立XX指标体系评估效果\",\n\"主要结论\": \"列出3-5个核心发现，必须包含量化数据。例如：1.\
+            \ 新方案使准确率达95.2%（±0.3%）；2. XX参数超过基线30%；3. 发现XX现象在80%样本中出现\",\n\"创新点\":\
+            \ \"对比已有工作的突破：1. 首创XX架构；2. 首次证明XX理论；3. 开发XX工具（效率提升50%）\",\n\"关键数据\": [\n\
+            \  {\"指标\": \"XX准确率\", \"值\": \"95.2%\", \"对比基准\": \"85.4%\"}, \n  {\"\
+            指标\": \"训练耗时\", \"值\": \"2.3小时\", \"硬件配置\": \"A100 GPU\"}\n]\n}\n\n**分析要求**：\n\
+            1. 数据精准：直接引用原文数字和单位，不可估算\n2. 创新点必须包含技术差异性描述\n3. 研究思想需包含「领域贡献」维度\n4. 关键数据需用[]标注原文位置页码/段落（如：P5-Table2）\n\
+            5. 若原文无对应内容则写\"未提及\"，禁止编造\n\n输入内容：\n{{#context#}}"
+        selected: false
+        structured_output_enabled: false
+        title: 论文解析
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1753092673402'
+      parentId: '1753091595682'
+      position:
+        x: 508
+        y: 102
+      positionAbsolute:
+        x: 3059.1311402122215
+        y: 454
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+      zIndex: 1002
+    - data:
+        desc: ''
+        error_handle_mode: terminated
+        height: 210
+        is_parallel: false
+        iterator_input_type: array[string]
+        iterator_selector:
+        - '1753085620948'
+        - abstract
+        output_selector:
+        - '1753092930842'
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1753092917171start
+        title: 论文分类迭代
+        type: iteration
+        width: 508
+      height: 210
+      id: '1753092917171'
+      position:
+        x: 2702
+        y: 696
+      positionAbsolute:
+        x: 2702
+        y: 696
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 508
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1753092917171start
+      parentId: '1753092917171'
+      position:
+        x: 60
+        y: 81
+      positionAbsolute:
+        x: 2762
+        y: 777
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1753092917171'
+          - item
+        desc: ''
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1753092917171'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: dba92c39-8a4d-421c-87d8-caced20e87bb
+          role: system
+          text: "你是一个严谨的AI文档分类器，需要将文档内容精准分类到以下八个指定类别之一：  \n**{认知模型，多模态，具身智能，AI4Science，Infra，Agent，应用体系，讨论区}**\
+            \  \n\n# 分类规则  \n1. **核心定义**  \n   - 认知模型：模拟人类思维/推理机制的模型（如：神经网络、决策树、知识图谱）\
+            \  \n   - 多模态：处理或融合多种数据类型（图像、文本、语音等）的技术  \n   - 具身智能：与环境交互的实体智能体（如机器人、传感器代理）\
+            \  \n   - AI4Science：解决科学问题的AI（如生物医药预测、物理模拟）  \n   - Infra：AI开发工具/底层设施（框架、算力、分布式系统）\
+            \  \n   - Agent：自主决策的代理系统（任务规划、自我迭代）  \n   - 应用体系：垂直领域解决方案（金融/教育/医疗等场景化应用）\
+            \  \n   - 讨论区：非技术性内容（观点辩论、会议记录、社区讨论）  \n\n2. **判断逻辑**  \n   - 若内容同时匹配多类别，选择**最核心的技术属性**\
+            \  \n   - 技术描述＞70%的文档优先技术类，其余归入“讨论区”  \n   - 拒绝添加任何说明，仅输出单类别名称  \n\n#\
+            \ 输入文档内容  \n{{#context#}}\n\n# 输出要求  \n直接返回最匹配的类别名称（严格使用上述大括号中列举的**中文词组**格式）"
+        selected: false
+        title: 论文分类
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1753092930842'
+      parentId: '1753092917171'
+      position:
+        x: 204
+        y: 60
+      positionAbsolute:
+        x: 2906
+        y: 756
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+      zIndex: 1002
+    - data:
+        code: "def main(abstract_url: str) -> dict:\n    # 获取abstract_url列表\n    urls\
+          \ = abstract_url\n    # 替换每个url中的'abs'为'pdf'\n    replaced_urls = [url.replace('/abs/',\
+          \ '/pdf/') for url in urls]\n    # 返回新dict，包含replaced_url字段\n    return\
+          \ {\n        \"replaced_url\": replaced_urls\n    }"
+        code_language: python3
+        desc: ''
+        outputs:
+          replaced_url:
+            children: null
+            type: array[string]
+        selected: false
+        title: URL替换
+        type: code
+        variables:
+        - value_selector:
+          - '1753085620948'
+          - abstract_url
+          value_type: array[string]
+          variable: abstract_url
+      height: 52
+      id: '1753101171277'
+      position:
+        x: 1700
+        y: 352
+      positionAbsolute:
+        x: 1700
+        y: 352
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        desc: ''
+        isInIteration: true
+        isInLoop: false
+        is_team_authorization: false
+        iteration_id: '1753091595682'
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: One or more URLs to extract content from (comma-separated if multiple).
+            ja_JP: One or more URLs to extract content from (comma-separated if multiple).
+            pt_BR: One or more URLs to extract content from (comma-separated if multiple).
+            zh_Hans: 要从中提取内容的一个或多个 URL（如果有多个，请用逗号分隔）。
+          label:
+            en_US: URLs
+            ja_JP: URLs
+            pt_BR: URLs
+            zh_Hans: URLs
+          llm_description: One or more URLs to extract content from (comma-separated
+            if multiple).
+          max: null
+          min: null
+          name: urls
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: 0
+          form: form
+          human_description:
+            en_US: Include a list of images extracted from the URLs in the response.
+            ja_JP: Include a list of images extracted from the URLs in the response.
+            pt_BR: Include a list of images extracted from the URLs in the response.
+            zh_Hans: 在响应中包含从 URL 提取的图像列表。
+          label:
+            en_US: Include Images
+            ja_JP: Include Images
+            pt_BR: Include Images
+            zh_Hans: 包含图像
+          llm_description: Include images from the URLs in the response. Default is
+            false.
+          max: null
+          min: null
+          name: include_images
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: 0
+          form: form
+          human_description:
+            en_US: Include favicon URL for each result.
+            ja_JP: Include favicon URL for each result.
+            pt_BR: Include favicon URL for each result.
+            zh_Hans: 包含每个结果的favicon URL。
+          label:
+            en_US: Include Favicon
+            ja_JP: Include Favicon
+            pt_BR: Include Favicon
+            zh_Hans: 包含Favicon
+          llm_description: When set to true, includes the favicon URL for each result.
+          max: null
+          min: null
+          name: include_favicon
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: basic
+          form: llm
+          human_description:
+            en_US: The depth of the extraction process. 'advanced' retrieves more
+              data but may increase latency and costs more credits.
+            ja_JP: The depth of the extraction process. 'advanced' retrieves more
+              data but may increase latency and costs more credits.
+            pt_BR: The depth of the extraction process. 'advanced' retrieves more
+              data but may increase latency and costs more credits.
+            zh_Hans: 提取过程的深度。"advanced"检索更多数据，但可能增加延迟和消耗更多积分。
+          label:
+            en_US: Extract Depth
+            ja_JP: Extract Depth
+            pt_BR: Extract Depth
+            zh_Hans: 提取深度
+          llm_description: Extraction depth - 'basic' (default, faster) or 'advanced'
+            (more data, higher cost).
+          max: null
+          min: null
+          name: extract_depth
+          options:
+          - icon: ''
+            label:
+              en_US: Basic
+              ja_JP: Basic
+              pt_BR: Basic
+              zh_Hans: 基本
+            value: basic
+          - icon: ''
+            label:
+              en_US: Advanced
+              ja_JP: Advanced
+              pt_BR: Advanced
+              zh_Hans: 高级
+            value: advanced
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: markdown
+          form: form
+          human_description:
+            en_US: The format of extracted content.
+            ja_JP: The format of extracted content.
+            pt_BR: The format of extracted content.
+            zh_Hans: 提取内容的格式。
+          label:
+            en_US: Content Format
+            ja_JP: Content Format
+            pt_BR: Content Format
+            zh_Hans: 内容格式
+          llm_description: Format of extracted content - 'markdown' (default) or 'text'
+            (plain text).
+          max: null
+          min: null
+          name: format
+          options:
+          - icon: ''
+            label:
+              en_US: Markdown
+              ja_JP: Markdown
+              pt_BR: Markdown
+              zh_Hans: Markdown
+            value: markdown
+          - icon: ''
+            label:
+              en_US: Text
+              ja_JP: Text
+              pt_BR: Text
+              zh_Hans: 文本
+            value: text
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        params:
+          extract_depth: ''
+          format: ''
+          include_favicon: ''
+          include_images: ''
+          urls: ''
+        provider_id: langgenius/tavily/tavily
+        provider_name: langgenius/tavily/tavily
+        provider_type: builtin
+        selected: false
+        title: Tavily Extract 论文识别
+        tool_configurations:
+          format:
+            type: constant
+            value: markdown
+          include_favicon:
+            type: constant
+            value: true
+          include_images:
+            type: constant
+            value: true
+        tool_description: 使用 Tavily Extract 从一个或多个指定的 URL 提取网页内容。
+        tool_label: Tavily Extract
+        tool_name: tavily_extract
+        tool_parameters:
+          extract_depth:
+            type: constant
+            value: advanced
+          urls:
+            type: mixed
+            value: '{{#1753091595682.item#}}'
+        type: tool
+        version: '2'
+      height: 172
+      id: '1753102485815'
+      parentId: '1753091595682'
+      position:
+        x: 204
+        y: 60
+      positionAbsolute:
+        x: 2755.1311402122215
+        y: 412
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+      zIndex: 1002
+    - data:
+        code: "import json\n\ndef main(explained_paper: list, classified_paper: list)\
+          \ -> dict:\n    result = []\n    for exp, cls in zip(explained_paper, classified_paper):\n\
+          \        # 去除代码块标记，提取纯 JSON\n        exp_clean = exp.strip()\n        if\
+          \ exp_clean.startswith(\"```json\"):\n            exp_clean = exp_clean[7:]\n\
+          \        if exp_clean.startswith(\"```\"):\n            exp_clean = exp_clean[3:]\n\
+          \        if exp_clean.endswith(\"```\"):\n            exp_clean = exp_clean[:-3]\n\
+          \        exp_clean = exp_clean.strip()\n        # 解析 JSON\n        try:\n\
+          \            exp_json = json.loads(exp_clean)\n        except Exception\
+          \ as e:\n            continue\n        # 构造新的结构并转为字符串\n        merged =\
+          \ {\n            \"paper_body\": exp_json,\n            \"category\": cls\n\
+          \        }\n        result.append(json.dumps(merged, ensure_ascii=False))\n\
+          \    return {\"result\": result}"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: array[string]
+        selected: false
+        title: 论文结果合并节点
+        type: code
+        variables:
+        - value_selector:
+          - '1753091595682'
+          - output
+          value_type: array[string]
+          variable: explained_paper
+        - value_selector:
+          - '1753092917171'
+          - output
+          value_type: array[string]
+          variable: classified_paper
+      height: 52
+      id: '1753110636172'
+      position:
+        x: 3452
+        y: 352
+      positionAbsolute:
+        x: 3452
+        y: 352
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1753110636172'
+          - result
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - edition_type: basic
+          id: 73d2d773-9f8e-495b-bd4e-4bf50e60d8b4
+          role: system
+          text: "请将输入的JSON字段转换为结构化Markdown格式，要求：\n1. 每个项目按一级标题`# [类别]`分类展示，类别取自\"\
+            category\"字段\n2. 每个项目包含五个二级标题节：`## 研究思想`、`## 研究方法`、`## 主要结论`、`## 创新点`、`##\
+            \ 关键数据`，取自paper_body字段\n3. 转换规则：\n   - 研究思想：直接输出原始字符串\n   - 研究方法/主要结论/创新点：将数组转为无序列表，每项前加`-\
+            \ `\n   - 关键数据：转换为表格格式，包含列`指标 | 值 | 对比基准 | 其他信息`\n     * 从对象中提取\"指标\"\
+            、\"值\"字段\n     * \"对比基准\"字段存在时直接填入，否则留空\n     * 其他字段（如位置/硬件配置等）合并为\"字段名:值\"\
+            格式（例：`位置:P8-Table2, 硬件配置:A100 GPU`）\n4. 项目间用空行分隔\n5. 禁用代码块符号，直接输出纯净Markdown\n\
+            \n输入JSON字段：\n{{#1753110636172.result#}}"
+        selected: false
+        title: Markdown排版
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1753113132470'
+      position:
+        x: 3786
+        y: 239.57142857142856
+      positionAbsolute:
+        x: 3786
+        y: 239.57142857142856
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Markdown text
+            ja_JP: Markdown text
+            pt_BR: Markdown text
+            zh_Hans: Markdown格式文本
+          label:
+            en_US: Markdown text
+            ja_JP: Markdown text
+            pt_BR: Markdown text
+            zh_Hans: Markdown格式文本
+          llm_description: ''
+          max: null
+          min: null
+          name: md_text
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Filename of the output file
+            ja_JP: Filename of the output file
+            pt_BR: Filename of the output file
+            zh_Hans: 输出文件名
+          label:
+            en_US: Filename of the output file
+            ja_JP: Filename of the output file
+            pt_BR: Filename of the output file
+            zh_Hans: 输出文件名
+          llm_description: ''
+          max: null
+          min: null
+          name: output_filename
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          md_text: ''
+          output_filename: ''
+        provider_id: bowenliang123/md_exporter/md_exporter
+        provider_name: bowenliang123/md_exporter/md_exporter
+        provider_type: builtin
+        selected: false
+        title: 奇绩前沿信号-文字版
+        tool_configurations: {}
+        tool_description: 将 Markdown 转换为 .md 文件的工具
+        tool_label: Markdown 转 md 文件
+        tool_name: md_to_md
+        tool_parameters:
+          md_text:
+            type: mixed
+            value: '飞书文档链接：{{#1753158887743.lark_url#}} \n {{#1753113132470.text#}} '
+          output_filename:
+            type: mixed
+            value: 奇绩前沿信号 {{#17531530225850.text#}}【文字版】
+        type: tool
+        version: '2'
+      height: 84
+      id: '1753152967864'
+      position:
+        x: 5424.835137266266
+        y: 363.8571428571429
+      positionAbsolute:
+        x: 5424.835137266266
+        y: 363.8571428571429
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: '%Y-%m-%d %H:%M:%S'
+          form: form
+          human_description:
+            en_US: Time format in strftime standard.
+            ja_JP: Time format in strftime standard.
+            pt_BR: Time format in strftime standard.
+            zh_Hans: strftime 标准的时间格式。
+          label:
+            en_US: Format
+            ja_JP: Format
+            pt_BR: Format
+            zh_Hans: 格式
+          llm_description: null
+          max: null
+          min: null
+          name: format
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: UTC
+          form: form
+          human_description:
+            en_US: Timezone
+            ja_JP: Timezone
+            pt_BR: Timezone
+            zh_Hans: 时区
+          label:
+            en_US: Timezone
+            ja_JP: Timezone
+            pt_BR: Timezone
+            zh_Hans: 时区
+          llm_description: null
+          max: null
+          min: null
+          name: timezone
+          options:
+          - icon: null
+            label:
+              en_US: UTC
+              ja_JP: UTC
+              pt_BR: UTC
+              zh_Hans: UTC
+            value: UTC
+          - icon: null
+            label:
+              en_US: America/New_York
+              ja_JP: America/New_York
+              pt_BR: America/New_York
+              zh_Hans: 美洲/纽约
+            value: America/New_York
+          - icon: null
+            label:
+              en_US: America/Los_Angeles
+              ja_JP: America/Los_Angeles
+              pt_BR: America/Los_Angeles
+              zh_Hans: 美洲/洛杉矶
+            value: America/Los_Angeles
+          - icon: null
+            label:
+              en_US: America/Chicago
+              ja_JP: America/Chicago
+              pt_BR: America/Chicago
+              zh_Hans: 美洲/芝加哥
+            value: America/Chicago
+          - icon: null
+            label:
+              en_US: America/Sao_Paulo
+              ja_JP: America/Sao_Paulo
+              pt_BR: América/São Paulo
+              zh_Hans: 美洲/圣保罗
+            value: America/Sao_Paulo
+          - icon: null
+            label:
+              en_US: Asia/Shanghai
+              ja_JP: Asia/Shanghai
+              pt_BR: Asia/Shanghai
+              zh_Hans: 亚洲/上海
+            value: Asia/Shanghai
+          - icon: null
+            label:
+              en_US: Asia/Ho_Chi_Minh
+              ja_JP: Asia/Ho_Chi_Minh
+              pt_BR: Ásia/Ho Chi Minh
+              zh_Hans: 亚洲/胡志明市
+            value: Asia/Ho_Chi_Minh
+          - icon: null
+            label:
+              en_US: Asia/Tokyo
+              ja_JP: Asia/Tokyo
+              pt_BR: Asia/Tokyo
+              zh_Hans: 亚洲/东京
+            value: Asia/Tokyo
+          - icon: null
+            label:
+              en_US: Asia/Dubai
+              ja_JP: Asia/Dubai
+              pt_BR: Asia/Dubai
+              zh_Hans: 亚洲/迪拜
+            value: Asia/Dubai
+          - icon: null
+            label:
+              en_US: Asia/Kolkata
+              ja_JP: Asia/Kolkata
+              pt_BR: Asia/Kolkata
+              zh_Hans: 亚洲/加尔各答
+            value: Asia/Kolkata
+          - icon: null
+            label:
+              en_US: Asia/Seoul
+              ja_JP: Asia/Seoul
+              pt_BR: Asia/Seoul
+              zh_Hans: 亚洲/首尔
+            value: Asia/Seoul
+          - icon: null
+            label:
+              en_US: Asia/Singapore
+              ja_JP: Asia/Singapore
+              pt_BR: Asia/Singapore
+              zh_Hans: 亚洲/新加坡
+            value: Asia/Singapore
+          - icon: null
+            label:
+              en_US: Europe/London
+              ja_JP: Europe/London
+              pt_BR: Europe/London
+              zh_Hans: 欧洲/伦敦
+            value: Europe/London
+          - icon: null
+            label:
+              en_US: Europe/Berlin
+              ja_JP: Europe/Berlin
+              pt_BR: Europe/Berlin
+              zh_Hans: 欧洲/柏林
+            value: Europe/Berlin
+          - icon: null
+            label:
+              en_US: Europe/Moscow
+              ja_JP: Europe/Moscow
+              pt_BR: Europe/Moscow
+              zh_Hans: 欧洲/莫斯科
+            value: Europe/Moscow
+          - icon: null
+            label:
+              en_US: Australia/Sydney
+              ja_JP: Australia/Sydney
+              pt_BR: Australia/Sydney
+              zh_Hans: 澳大利亚/悉尼
+            value: Australia/Sydney
+          - icon: null
+            label:
+              en_US: Pacific/Auckland
+              ja_JP: Pacific/Auckland
+              pt_BR: Pacific/Auckland
+              zh_Hans: 太平洋/奥克兰
+            value: Pacific/Auckland
+          - icon: null
+            label:
+              en_US: Africa/Cairo
+              ja_JP: Africa/Cairo
+              pt_BR: Africa/Cairo
+              zh_Hans: 非洲/开罗
+            value: Africa/Cairo
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        params:
+          format: ''
+          timezone: ''
+        provider_id: time
+        provider_name: time
+        provider_type: builtin
+        selected: false
+        title: 获取当前日期
+        tool_configurations:
+          format:
+            type: mixed
+            value: '%m.%d'
+          timezone:
+            type: constant
+            value: UTC
+        tool_description: 一个用于获取当前时间的工具。
+        tool_label: 获取当前时间
+        tool_name: current_time
+        tool_parameters: {}
+        type: tool
+        version: '2'
+      height: 146
+      id: '17531530225850'
+      position:
+        x: 3786
+        y: 363.8571428571429
+      positionAbsolute:
+        x: 3786
+        y: 363.8571428571429
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Document title, only supports plain text content.
+            ja_JP: Document title, only supports plain text content.
+            pt_BR: Document title, only supports plain text content.
+            zh_Hans: 文档标题，只支持纯文本内容。
+          label:
+            en_US: Document title
+            ja_JP: Document title
+            pt_BR: Document title
+            zh_Hans: 文档标题
+          llm_description: 文档标题，只支持纯文本内容，可以为空。
+          max: null
+          min: null
+          name: title
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Document content, supports markdown syntax, can be empty.
+            ja_JP: Document content, supports markdown syntax, can be empty.
+            pt_BR: Document content, supports markdown syntax, can be empty.
+            zh_Hans: 文档内容，支持 markdown 语法，可以为空。
+          label:
+            en_US: Document content
+            ja_JP: Document content
+            pt_BR: Document content
+            zh_Hans: 文档内容
+          llm_description: 文档内容，支持 markdown 语法，可以为空。
+          max: null
+          min: null
+          name: content
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: 'The token of the folder where the document is located. If it is
+              not passed or is empty, it means the root directory. For Example: https://lark-japan.jp.larksuite.com/drive/folder/Lf8uf6BoAlWkUfdGtpMjUV0PpZd
+
+              '
+            ja_JP: 'The token of the folder where the document is located. If it is
+              not passed or is empty, it means the root directory. For Example: https://lark-japan.jp.larksuite.com/drive/folder/Lf8uf6BoAlWkUfdGtpMjUV0PpZd
+
+              '
+            pt_BR: 'The token of the folder where the document is located. If it is
+              not passed or is empty, it means the root directory. For Example: https://lark-japan.jp.larksuite.com/drive/folder/Lf8uf6BoAlWkUfdGtpMjUV0PpZd
+
+              '
+            zh_Hans: 文档所在文件夹的 Token，不传或传空表示根目录。例如：https://lark-japan.jp.larksuite.com/drive/folder/Lf8uf6BoAlWkUfdGtpMjUV0PpZd。
+          label:
+            en_US: folder_token
+            ja_JP: folder_token
+            pt_BR: folder_token
+            zh_Hans: 文档所在文件夹的 Token
+          llm_description: 文档所在文件夹的 Token，不传或传空表示根目录。例如：https://lark-japan.jp.larksuite.com/drive/folder/Lf8uf6BoAlWkUfdGtpMjUV0PpZd。
+          max: null
+          min: null
+          name: folder_token
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          content: ''
+          folder_token: ''
+          title: ''
+        provider_id: langgenius/lark_document/lark_document
+        provider_name: langgenius/lark_document/lark_document
+        provider_type: builtin
+        selected: false
+        title: 创建 Lark 文档
+        tool_configurations: {}
+        tool_description: 创建 Lark 文档，支持创建空文档和带内容的文档，支持 markdown 语法创建。应用需要开启机器人能力(https://open.larksuite.com/document/faq/trouble-shooting/how-to-enable-bot-ability)。
+        tool_label: 创建 Lark 文档
+        tool_name: create_document
+        tool_parameters:
+          content:
+            type: mixed
+            value: '{{#1753113132470.text#}}'
+          folder_token:
+            type: mixed
+            value: ''
+          title:
+            type: mixed
+            value: 奇绩前沿信号 {{#17531530225850.text#}}【文字版】
+        type: tool
+        version: '2'
+      height: 84
+      id: '1753157893478'
+      position:
+        x: 4836.945771257522
+        y: 363.8571428571429
+      positionAbsolute:
+        x: 4836.945771257522
+        y: 363.8571428571429
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        code: "import json\n\ndef main(lark_url: str) -> dict:\n    \"\"\"\n    从飞书提供的array[object]\
+          \ json数据中提取lark_url字段\n    \n    Args:\n        lark_url: 包含飞书文档信息的JSON字符串或列表\n\
+          \        \n    Returns:\n        dict: 包含提取的lark_url信息\n    \"\"\"\n   \
+          \ try:\n        # 解析输入的JSON数据\n        if isinstance(lark_url, str):\n \
+          \           data = json.loads(lark_url)\n        else:\n            data\
+          \ = lark_url\n            \n        # 处理不同的数据结构\n        if isinstance(data,\
+          \ dict):\n            # 如果是字典格式，提取lark_url数组\n            lark_urls = data.get(\"\
+          lark_url\", [])\n        elif isinstance(data, list):\n            # 如果直接是列表格式，直接使用\n\
+          \            lark_urls = data\n        else:\n            lark_urls = []\n\
+          \        \n        # 提取每个文档的URL\n        doc_urls = []\n        for item\
+          \ in lark_urls:\n            if isinstance(item, dict) and \"url\" in item:\n\
+          \                doc_urls.append(item[\"url\"])\n        \n        # 如果有多个URL，用第一个，否则返回空字符串\n\
+          \        doc_url = doc_urls[0] if doc_urls else \"\"\n        \n       \
+          \ return {\n            \"lark_url\": doc_url\n        }\n        \n   \
+          \ except (json.JSONDecodeError, KeyError, TypeError) as e:\n        # 处理解析错误\n\
+          \        return {\n            \"lark_url\": \"error\",\n        }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          lark_url:
+            children: null
+            type: string
+        selected: false
+        title: 获取飞书文档链接
+        type: code
+        variables:
+        - value_selector:
+          - '1753157893478'
+          - json
+          value_type: array[object]
+          variable: lark_url
+      height: 52
+      id: '1753158887743'
+      position:
+        x: 5124.188090793861
+        y: 363.8571428571429
+      positionAbsolute:
+        x: 5124.188090793861
+        y: 363.8571428571429
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1753113132470'
+          - text
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-reasoner
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: fa5c124a-61cc-4ee6-af2f-8b168702b22a
+          role: system
+          text: "    role_play = \"两位中文播客主持人\"\n    instruction = f\"\"\"你是一位专业的中文播客文字脚本撰稿人。现在请你根据提供的有关最新AI及大模型相关进展的原始资料，生成一段模拟{role_play}之间的自然对话脚本。该脚本应符合以下具体要求：\n\
+            一、语言风格\n - 使用较为自然、随意、轻松的日常中文表达；\n - 优先采用简单易懂的词汇，避免书面用语，将书面表达转换为符合口语表达的形式，但不改变专业词汇的内容；\n\
+            \ - 可适度加入网络流行语、俗语、俚语，增强真实感；\n - 符合{role_play}对话的感觉。\n\n二、句式结构\n - 使用松散、自然的句式，允许存在口语特征如重复、停顿、语气词等；\n\
+            \ - 鼓励使用叠词（如“特别特别”、“慢慢来”）和填充词（如“这个”、“其实”、“然后”、“就是”、“呃”等）；\n - 可适度插入模糊表达、略带情绪的语调，增强亲和力。\n\
+            \n三、对话结构\n - 两个说话人交替发言，并使用[S1]和[S2]标记两位说话人轮次，[S1]和[S2]中间不加入换行；\n - 每当一方讲话时，另一方可以适当插入自然、简短的反馈或承接语（如“嗯。”“对。”“是的。”“确实。”“原来是这样。”等），展现倾听状态；\n\
+            \ - 对话应有开头引入、核心讨论与自然结尾，语气上有节奏起伏，避免平铺直叙；\n - 总长度控制在10分钟以内的语音朗读时长（不超过1500字），禁止超时。\n\
+            \ - **特别强调听话方的积极反馈：当一位说话人正在讲述或解释某个观点时，另一位说话人应频繁地插入简短的承接或反馈词语（例如：「嗯。」、「是。」、「对。」、「哦。」、「是的。」、「哦，原来是这样。」、「明白。」、「没错。」、「有道理。」、「确实」），以表明其正在积极倾听、理解和互动。这些反馈应自然地穿插在说话者语句的间歇或段落转换处，而不是生硬地打断。例如：[S2]我本人其实不太相信星座诶，[S1]嗯。[S2]在一开始的时候，我就跟大部分不相信星座的一样，觉得，呃，你总能把人就分成十二种，[S1]是的。[S2]然后呢就它讲的就是对的。这种反馈要尽可能多，不要吝啬。**\n\
+            \n四、标点与格式\n - 仅使用中文标点：逗号、句号、问号；\n - 禁止使用叹号。禁止使用省略号（'...'）、括号、引号（包括‘’\"\
+            \"'\"）或波折号等特殊符号；\n - 所有数字转换为中文表达，如“1000000”修改为“一百万”；\n - 请根据上下文，智慧地判断数字的读音，所有带数字的英文缩写要意译，如“a2b”输出为“a到b”、“gpt-4o”输出为“GPT四O”、“3:4”输出为“3比4”，“2021”如果表达年份，应当转换为“二零二一”，但如果表示数字，应当转换为“两千零二十一”。请保证不要简单转换为中文数字，而是根据上下文，将其翻译成合适的中文。\n\
+            \ - 对于模型名称中的数字单位（如“三点一八B”），如果存在两个数字之间夹有单位（如B、K、M、G、亿、万等），请在数字之间加入适当的停顿，例如加一个逗号，将其转化为“三点一，八B”，增强可听性和理解度。\n\
+            \n五、内容要求\n - 所有内容都基于原始资料改写，不得照搬其书面表达，原始资料中所有的内容都要完整的提到，不能丢失或者省略信息；\n -\
+            \ 可加入适当的背景说明、吐槽、对比、联想、提问等方式，增强对话的节奏和趣味性；\n - 确保信息密度较高，引用需确保上下文完整，确保听众能理解；\n\
+            \ - 在对话内不要输出“我是S1”，“我是S2”等相关内容，S1可以自称小奇，S2可以自称小思。\n - 第一轮对话必须要写类似于“[S1]今天是7月10号，欢迎大家来到今天的奇绩创坛前沿信号语音版。”，但是不能是这一句，可以自由发挥。\n\
+            \ - 如有专业术语则需要提供解释的解释，如果涉及抽象技术点，可以使用比喻类比等方式解释，避免听起来晦涩难懂。\n - 播客开头的说话方式请尽量多样化，避免每次都用“最近发生了好多事”这种重复的话术。可以根据不同内容设计更自然、有趣或具有吸引力的开场白，例如提问、引用、情绪化陈述或直接切入主题等方式，提升听众的新鲜感和代入感。\n\
+            \n## 原始资料\n{{#context#}}\n\n请根据以上要求和提供的原始资料，将其转化为符合以上所有要求的播客对话脚本。一定要用[S1]和[S2]标记两位说话人，绝对不能使用任何其它符号标记说话人。\n\
+            注意：直接输出结果，不要包含任何额外信息。\n\"\"\""
+        selected: false
+        title: 播客文稿转换器
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 88
+      id: '1753162295098'
+      position:
+        x: 4090
+        y: 239.57142857142856
+      positionAbsolute:
+        x: 4090
+        y: 239.57142857142856
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        advanced_settings:
+          group_enabled: false
+          groups:
+          - groupId: 4c0d26a8-5324-4125-ba63-a579724bdd0c
+            group_name: Group1
+            output_type: string
+            variables:
+            - - '1753113132470'
+              - text
+            - - '1753162295098'
+              - text
+            - - '17531530225850'
+              - text
+        desc: ''
+        output_type: string
+        selected: false
+        title: 变量聚合器
+        type: variable-aggregator
+        variables:
+        - - '1753113132470'
+          - text
+        - - '1753162295098'
+          - text
+        - - '17531530225850'
+          - text
+      height: 151
+      id: '1753169421107'
+      position:
+        x: 4514.945771257522
+        y: 363.8571428571429
+      positionAbsolute:
+        x: 4514.945771257522
+        y: 363.8571428571429
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Markdown text
+            ja_JP: Markdown text
+            pt_BR: Markdown text
+            zh_Hans: Markdown格式文本
+          label:
+            en_US: Markdown text
+            ja_JP: Markdown text
+            pt_BR: Markdown text
+            zh_Hans: Markdown格式文本
+          llm_description: ''
+          max: null
+          min: null
+          name: md_text
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Filename of the output file
+            ja_JP: Filename of the output file
+            pt_BR: Filename of the output file
+            zh_Hans: 输出文件名
+          label:
+            en_US: Filename of the output file
+            ja_JP: Filename of the output file
+            pt_BR: Filename of the output file
+            zh_Hans: 输出文件名
+          llm_description: ''
+          max: null
+          min: null
+          name: output_filename
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          md_text: ''
+          output_filename: ''
+        provider_id: bowenliang123/md_exporter/md_exporter
+        provider_name: bowenliang123/md_exporter/md_exporter
+        provider_type: builtin
+        selected: false
+        title: 奇绩前沿信号-播客稿
+        tool_configurations: {}
+        tool_description: 将 Markdown 转换为 .md 文件的工具
+        tool_label: Markdown 转 md 文件
+        tool_name: md_to_md
+        tool_parameters:
+          md_text:
+            type: mixed
+            value: '{{#1753162295098.text#}}'
+          output_filename:
+            type: mixed
+            value: 奇绩前沿信号 {{#17531530225850.text#}} 【播客稿】
+        type: tool
+        version: '2'
+      height: 84
+      id: '1753171389380'
+      position:
+        x: 5424.835137266266
+        y: 488.8571428571429
+      positionAbsolute:
+        x: 5424.835137266266
+        y: 488.8571428571429
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 243
+    viewport:
+      x: -4465.20334821186
+      y: 78.24534595138311
+      zoom: 0.8840636989078919
