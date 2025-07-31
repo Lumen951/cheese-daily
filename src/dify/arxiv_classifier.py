@@ -15,9 +15,14 @@ def main(paper_info: str) -> dict:
             urls.append(paper.get("Abstract_URL", ""))
         except Exception as e:
             continue
+    
+    # 替换每个url中的'abs'为'pdf'
+    replaced_urls = [url.replace('/abs/', '/pdf/') for url in urls]
+    
     return {
         "title": titles,
         "abstract": abstracts,
         "abstract_url": urls,
+        "replaced_url": replaced_urls,
         "paper_count": len(titles)
     }
