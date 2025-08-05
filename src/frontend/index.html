@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dify 工作流应用</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0884ff;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .upload-area {
+            border: 3px dashed #0884ff;
+            border-radius: 15px;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area:hover {
+            border-color: #0666cc;
+            background-color: #f8fbff;
+        }
+
+        .upload-area.dragover {
+            border-color: #0666cc;
+            background-color: #e6f3ff;
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: #0884ff;
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .upload-hint {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .file-list {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .file-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #0884ff;
+        }
+
+        .file-name {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .file-size {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .remove-file {
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .start-button {
+            background: linear-gradient(135deg, #0884ff 0%, #0666cc 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(8, 132, 255, 0.3);
+            margin-top: 20px;
+        }
+
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(8, 132, 255, 0.4);
+        }
+
+        .start-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .loading {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #0884ff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result-area {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            text-align: left;
+            display: none;
+        }
+
+        .result-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .result-content {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .error {
+            color: #ff4757;
+            background: #ffe6e6;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🤖 Dify 工作流</div>
+        <div class="subtitle">上传文件并启动AI工作流</div>
+        
+        <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">📁</div>
+            <div class="upload-text">拖拽文件到此处或点击上传</div>
+                         <div class="upload-hint">支持 Excel (.xlsx, .xls) 和 CSV (.csv) 格式</div>
+             <input type="file" id="fileInput" multiple accept=".xlsx,.xls,.csv" class="hidden">
+        </div>
+
+        <div class="file-list" id="fileList"></div>
+
+        <button class="start-button" id="startButton" disabled>
+            启动 Dify 工作流
+        </button>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <div>正在处理中，请稍候...</div>
+        </div>
+
+        <div class="result-area" id="resultArea">
+            <div class="result-title">处理结果：</div>
+            <div class="result-content" id="resultContent"></div>
+        </div>
+
+        <div class="error" id="errorMessage"></div>
+    </div>
+
+    <script src="dify-api.js"></script>
+    <script>
+        // Dify API 配置
+        const DIFY_API_KEY = 'app-Zk1QgpWmbh2iwdvzRzBC256m';
+        const DIFY_API_URL = 'https://api.dify.ai/v1';
+        
+        // 初始化 API 实例
+        const difyAPI = new DifyAPI(DIFY_API_KEY, DIFY_API_URL);
+        let uploadedFiles = [];
+
+        // DOM 元素
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        const startButton = document.getElementById('startButton');
+        const loading = document.getElementById('loading');
+        const resultArea = document.getElementById('resultArea');
+        const resultContent = document.getElementById('resultContent');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // 文件上传处理
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = Array.from(e.dataTransfer.files);
+            handleFiles(files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            handleFiles(files);
+        });
+
+                async function handleFiles(files) {
+            for (const file of files) {
+                try {
+                    // 验证文件
+                    FileProcessor.validateFile(file);
+                    
+                    // 检查是否已存在
+                    if (!uploadedFiles.find(f => f.name === file.name)) {
+                        uploadedFiles.push(file);
+                    }
+                } catch (error) {
+                    showError(`文件 ${file.name} 处理失败: ${error.message}`);
+                }
+            }
+            updateFileList();
+            updateStartButton();
+        }
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            uploadedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <div>
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${FileProcessor.formatFileSize(file.size)}</div>
+                    </div>
+                    <button class="remove-file" onclick="removeFile(${index})">删除</button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        }
+
+        function removeFile(index) {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+            updateStartButton();
+        }
+
+        function updateStartButton() {
+            startButton.disabled = uploadedFiles.length === 0;
+        }
+
+        // 启动 Dify 工作流
+        startButton.addEventListener('click', async () => {
+            if (uploadedFiles.length === 0) return;
+
+            try {
+                showLoading(true);
+                hideError();
+                hideResult();
+
+                // 上传所有文件并获取文件ID
+                const fileIds = [];
+                for (const file of uploadedFiles) {
+                    try {
+                        console.log(`正在上传文件: ${file.name}`);
+                        const fileId = await difyAPI.uploadFile(file);
+                        if (fileId) {
+                            fileIds.push(fileId);
+                            console.log(`文件 ${file.name} 上传成功，ID: ${fileId}`);
+                        }
+                    } catch (error) {
+                        console.error(`文件 ${file.name} 上传失败:`, error);
+                        showError(`文件 ${file.name} 上传失败: ${error.message}`);
+                        return;
+                    }
+                }
+
+                if (fileIds.length === 0) {
+                    showError("没有文件上传成功，无法执行工作流");
+                    return;
+                }
+
+                console.log(`所有文件上传成功，开始执行工作流...`);
+                console.log(`文件ID列表: ${fileIds.join(', ')}`);
+
+                // 运行工作流
+                const result = await difyAPI.runWorkflow(fileIds);
+
+                showResult(result);
+
+            } catch (error) {
+                console.error('Error:', error);
+                showError(`工作流执行失败: ${error.message}`);
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        function showLoading(show) {
+            loading.style.display = show ? 'block' : 'none';
+            startButton.disabled = show;
+        }
+
+        function showResult(result) {
+            let content = '';
+            
+            if (result.answer) {
+                content = result.answer;
+            } else if (result.message) {
+                content = result.message;
+            } else {
+                content = JSON.stringify(result, null, 2);
+            }
+            
+            resultContent.innerHTML = `<pre>${content}</pre>`;
+            resultArea.style.display = 'block';
+        }
+
+        function hideResult() {
+            resultArea.style.display = 'none';
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        function hideError() {
+            errorMessage.style.display = 'none';
+        }
+
+        // 初始化
+        updateStartButton();
+    </script>
+</body>
+</html>

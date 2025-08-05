@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dify API 测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .log {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        button {
+            background: #0884ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0666cc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dify API 测试页面</h1>
+    
+    <div class="test-section">
+        <h3>文件上传测试</h3>
+        <input type="file" id="testFile" accept=".xlsx,.xls,.csv">
+        <button onclick="testUpload()">测试上传</button>
+        <div id="uploadLog" class="log"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>工作流测试</h3>
+        <input type="text" id="fileId" placeholder="输入文件ID">
+        <button onclick="testWorkflow()">测试工作流</button>
+        <div id="workflowLog" class="log"></div>
+    </div>
+
+    <script src="dify-api.js"></script>
+    <script>
+        const difyAPI = new DifyAPI('app-Zk1QgpWmbh2iwdvzRzBC256m', 'https://api.dify.ai/v1');
+
+        function log(elementId, message) {
+            const element = document.getElementById(elementId);
+            element.textContent += new Date().toLocaleTimeString() + ': ' + message + '\n';
+            element.scrollTop = element.scrollHeight;
+        }
+
+        async function testUpload() {
+            const fileInput = document.getElementById('testFile');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                log('uploadLog', '请选择文件');
+                return;
+            }
+
+            try {
+                log('uploadLog', `开始上传文件: ${file.name}`);
+                const fileId = await difyAPI.uploadFile(file);
+                log('uploadLog', `上传成功，文件ID: ${fileId}`);
+            } catch (error) {
+                log('uploadLog', `上传失败: ${error.message}`);
+            }
+        }
+
+        async function testWorkflow() {
+            const fileId = document.getElementById('fileId').value;
+            
+            if (!fileId) {
+                log('workflowLog', '请输入文件ID');
+                return;
+            }
+
+            try {
+                log('workflowLog', `开始执行工作流，文件ID: ${fileId}`);
+                const result = await difyAPI.runWorkflow([fileId]);
+                log('workflowLog', `工作流执行成功: ${JSON.stringify(result, null, 2)}`);
+            } catch (error) {
+                log('workflowLog', `工作流执行失败: ${error.message}`);
+            }
+        }
+    </script>
+</body>
+</html> 
